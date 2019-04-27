@@ -34,7 +34,6 @@ public class Enemy : MonoBehaviour {
             prevSectorsDist += path[currentPt].dist;
             ++currentPt;
             completionCurrentPt = 0.0f;
-            Debug.Log("Current point increment");
         }
 
 

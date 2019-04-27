@@ -11,6 +11,7 @@ public class Trackpath : MonoBehaviour {
 
     private void Start () {
         FindPoints();
+        CalcDistances();
     }
 
     // Allows sqr-bracket operator to be used.
@@ -22,6 +23,7 @@ public class Trackpath : MonoBehaviour {
 #if UNITY_EDITOR
     private void OnDrawGizmos () {
         FindPoints();
+        CalcDistances();
         if (points.Count < 2) {
             Debug.Log("Returning...");
             return;
@@ -44,17 +46,29 @@ public class Trackpath : MonoBehaviour {
         }
         points.Clear();
         int i = 0;
-        Vector2 prevPos = Vector2.zero;
-        totalDistance = 0.0f;
         foreach (Transform child in transform) {
             child.gameObject.name = "Pt" + i;
-            RectTransform trans = child.GetComponent<RectTransform>();
-            float dist = Vector2.Distance(prevPos, trans.position);
-            totalDistance += dist;
-            prevPos = trans.position;
-            TrackPoint pt = new TrackPoint(trans, dist);
-            points.Add(pt);
+            points.Add(new TrackPoint(child.GetComponent<RectTransform>()));
             ++i;
+        }
+    }
+
+    /// <summary>Calculate the total length of the path</summary>
+    private void CalcDistances () {
+        totalDistance = 0.0f;
+        if (points.Count < 2) {
+            totalDistance = 0.0f;
+        }
+        else {
+            // Traverse the list and add the distances of all
+            TrackPoint prev = points[0];
+            for (int i = 1; i < points.Count; i++) {
+                TrackPoint next = points[i];
+                float d = Vector2.Distance(prev.pos, next.pos);
+                totalDistance += d;
+                prev.dist = d;
+                prev = next;
+            }
         }
     }
 }
