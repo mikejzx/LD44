@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public static GameManager instance;
+    public static Trackpath currentPath { get { return instance._currentPath; } }
+
+    [SerializeField] private Trackpath _currentPath;
+
+    private void Awake () => instance = this;
 }
