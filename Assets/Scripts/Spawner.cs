@@ -13,7 +13,7 @@ public class Spawner {
     public Transform enemyParent;
 
     //private Pool<Enemy> pooledEnemies = new Pool<Enemy>();
-    private List<Enemy> enemies = new List<Enemy>();
+    public List<Enemy> enemies = new List<Enemy>();
     private const int poolSize = 30;
 
     private int _wave = 1;
@@ -23,7 +23,7 @@ public class Spawner {
     private int enemiesKilledThisWave = 0;
 
     private float timer = 0.0f;
-    private float spawnSpeed = 0.5f;
+    private float spawnSpeed = 1.0f;
 
     public Spawner () {
         /*List<Enemy> list = new List<Enemy>(poolSize);
@@ -36,8 +36,8 @@ public class Spawner {
 
     public void Update () {
         if (enemiesRemainingThisWave > 0) {
-            timer += Time.deltaTime * spawnSpeed;
-            if (timer > 1.0f) {
+            timer += Time.deltaTime;
+            if (timer > spawnSpeed) {
                 timer = 0.0f;
                 SpawnEnemy();
             }
@@ -53,6 +53,7 @@ public class Spawner {
                 enemiesKilledThisWave = 0;
                 enemiesToSpawnThisWave = wave * 15;
                 enemiesRemainingThisWave = enemiesToSpawnThisWave;
+                spawnSpeed = Mathf.Max(spawnSpeed - 0.1f, 0.04f);
             }
         }
     }

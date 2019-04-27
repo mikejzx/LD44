@@ -11,7 +11,7 @@ public class SpritesheetAnim : MonoBehaviour {
 
     public Sprite[] frames;
     public Image image;
-    public float frameDelay = 0.1f;
+    public float frameSpeed = 20.0f;
 
     private int curFrame = 0;
     private int frameCount = 0;
@@ -23,7 +23,7 @@ public class SpritesheetAnim : MonoBehaviour {
 
     private void Update () {
         timer += Time.deltaTime;
-        if (timer > frameDelay) {
+        if (timer > 1.0f / frameSpeed) {
             timer = 0.0f;
             ++curFrame;
             if (curFrame >= frameCount) {
@@ -32,5 +32,9 @@ public class SpritesheetAnim : MonoBehaviour {
         }
 
         image.sprite = frames[curFrame];
+    }
+
+    public void SetSpeed(float speed) {
+        frameSpeed = speed;
     }
 }
