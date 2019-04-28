@@ -61,18 +61,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AudioHandler.cs" />
+    <Compile Include="Assets\Scripts\DummyScene.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\FX\TripEffect.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GUIManager.cs" />
     <Compile Include="Assets\Scripts\GUITowerModule.cs" />
     <Compile Include="Assets\Scripts\IPoolable.cs" />
+    <Compile Include="Assets\Scripts\ITower.cs" />
+    <Compile Include="Assets\Scripts\MenuScene.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Pool.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\SpritesheetAnim.cs" />
     <Compile Include="Assets\Scripts\TowerBaseShooter.cs" />
     <Compile Include="Assets\Scripts\TowerDatabase.cs" />
+    <Compile Include="Assets\Scripts\TowerDisplay.cs" />
     <Compile Include="Assets\Scripts\TowerManager.cs" />
     <Compile Include="Assets\Scripts\TowerShoot.cs" />
     <Compile Include="Assets\Scripts\TowerUIElement.cs" />

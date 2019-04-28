@@ -23,6 +23,15 @@ public enum EnemyType {
 public class Enemy : MonoBehaviour, IPoolable {
     public EnemyType type;
 
+    public bool onTrack {
+        get {
+            if (trans != null) {
+                return trans.anchoredPosition.y < 0.0f && trans.anchoredPosition.x > 0.0f;
+            }
+            return false;
+        }
+    }
+
     public RectTransform imagePivot;
     public Image baseSprite; // Base enemy sprite - changes based on type.
 

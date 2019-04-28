@@ -2,22 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TowerBaseShooter : MonoBehaviour {
+public abstract class TowerBaseShooter : MonoBehaviour, ITower {
 
     public RectTransform arms, imagePivot;
     public Vector3 initialArmPos = Vector3.zero;
     public Vector3 shootArmPos = Vector3.zero;
+    public AudioClip shootSound;
+    public float soundVolume = 1.0f;
+    public RectTransform rangeCircle;
+
+    public int towerIndex = -1; // Jesus christ im in a rush sry
 
     private Coroutine shootCr = null;
     private float timer = 0.0f;
     private bool hasTarget = false;
+    private RectTransform trans;
 
+    private bool working = true;
+    private TowerInfo info;
 
     protected virtual void Start () {
         initialArmPos = arms.localPosition;
+        trans = GetComponent<RectTransform>();
     }
 
     protected virtual void Update () {
+        if (!working) { return; } // If the tower is not enabled (if it's being purchased)
         SearchForTargetsAndShoot();
     }
 
@@ -30,7 +40,7 @@ public abstract class TowerBaseShooter : MonoBehaviour {
         bool[] inRange = new bool[enemies.Count];
         int targetIdx = -1;
         for (int i = 0; i < enemies.Count; i++) {
-            if (Vector3.Distance(enemies[i].transform.position, transform.position) < GetRange()) {
+            if (enemies[i].onTrack && Vector3.Distance(enemies[i].trans.anchoredPosition, trans.anchoredPosition) < GetRange()) {
                 inRange[i] = true;
                 hasTarget = true;
                 targetIdx = i; // Will always be last target.
@@ -55,6 +65,20 @@ public abstract class TowerBaseShooter : MonoBehaviour {
         }
     }
 
+    // Implementation for ITower
+    public void ShowRangeCircle (bool show) {
+        float w = GetRange();
+        var v = new Vector2(w * 2.0f, w * 2.0f);
+        rangeCircle.sizeDelta = v;
+        rangeCircle.gameObject.SetActive(show);
+    }
+
+    public TowerInfo MyInfo () => TowerDatabase.towers[towerIndex];
+    public void SetTowerInfo (TowerInfo t) => info = t;
+    public GameObject GetGameobject () => gameObject;
+    public GameObject GetRangeCircle () => rangeCircle.gameObject;
+    public void SetEnabled (bool enable) => working = enable;
+
     protected abstract float GetRange ();
     protected abstract float GetShootDelay ();
     protected abstract int GetDamage ();
@@ -62,6 +86,11 @@ public abstract class TowerBaseShooter : MonoBehaviour {
     protected void Shoot (Enemy target) {
         // Handle actually firing here...
         target.Damage(GetDamage());
+        if (shootSound != null) {
+            AudioHandler.Play2DSound(shootSound, soundVolume);
+        }
+        // Add to player's kills
+        ++Player.kills;
 
         // This is for the VFX suchas recoil kickback etc.
         if (shootCr != null) { StopCoroutine(shootCr); }

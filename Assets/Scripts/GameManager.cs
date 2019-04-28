@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
     public static Trackpath currentPath { get { return instance._currentPath; } }
+    public static Camera mainCam { get { return instance._mainCam; } }
     public static Player player;
 
     // Random sprites
@@ -45,7 +46,10 @@ public class GameManager : MonoBehaviour {
         ENEMYDAMAGE_TOUGHER = 20,
         ENEMYDAMAGE_INSANE = 30;
 
+    public static readonly float CANVAS_WIDTH = 800.0f, CANVAS_HEIGHT = 450.0f;
+    public static readonly int WAVE_BONUS_LIFE_MUL = 15;
     public static readonly int STARTING_HEALTH = 150;
+    public static readonly float VOLUME_WAVECOMPLETE = 0.7f;
 
     private void Awake () => instance = this;
 

@@ -11,7 +11,7 @@ public class TowerUIElement : MonoBehaviour {
 
     public bool available = false;
 
-    private Button btn;
+    [HideInInspector] public Button btn;
 
     public void Initialise () => btn = GetComponent<Button>();
 

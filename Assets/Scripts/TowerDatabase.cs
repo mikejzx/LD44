@@ -6,7 +6,7 @@ public static class TowerDatabase {
 
     public static List<TowerInfo> towers = new List<TowerInfo>() {
         new TowerInfo("tower_pistol", "Pistol Tower", 50, "Shoots a low-power pistol in a short range, at short intervals."),
-        new TowerInfo("tower_sniper", "Sniper Tower", 500, "A high-powered sniper rifle that is capable of obliterating anything within an enormous range!"),
+        new TowerInfo("tower_sniper", "Sniper Tower", 200, "A high-powered sniper rifle that is capable of obliterating anything within an enormous range!"),
         // TODO: More towers !
     };
 }
@@ -27,6 +27,7 @@ public class TowerInfo {
 
         try {
             myPrefab = Resources.Load<GameObject>($"prefabs/{ identifier }");
+            myPrefab.GetComponent<ITower>().SetTowerInfo(this);
             mySprite = Resources.Load<Sprite>($"tower_icos/ico_{ identifier }");
         }
         catch (System.Exception e) {

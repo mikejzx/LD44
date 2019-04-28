@@ -40,7 +40,7 @@ public class Spawner {
     private const int poolSize = 30;
 
     private int _wave = 1;
-    public int wave { get { return _wave; } set { GUIManager.SetWave(value); _wave = value; } } 
+    public static int wave { get { return instance._wave; } set { GUIManager.SetWave(value); instance._wave = value; } } 
     private int enemiesRemainingThisWave = 12;
     private int enemiesToSpawnThisWaveTotal = 12;
     private int enemiesKilledThisWave = 0;
@@ -102,7 +102,7 @@ public class Spawner {
                 WaveIncrement();
 
                 // Give player more life
-                Player.health += 50;
+                Player.health += wave * GameManager.WAVE_BONUS_LIFE_MUL;
 
                 // Wait for user input to continue.
                 ready = false;
@@ -112,6 +112,7 @@ public class Spawner {
 
     private void WaveIncrement () {
         ++wave;
+        AudioHandler.PlayWaveFinishSound();
 
         // Calculate number of enemies to spawn next round.
         enemiesKilledThisWave = 0;
@@ -121,6 +122,9 @@ public class Spawner {
         WaveSpawnHandler.GetEnemyCountsTyped(wave, enemiesToSpawnThisWaveTotal,
             out enemiesToSpawn_basic, out enemiesToSpawn_tough,
             out enemiesToSpawn_tougher, out enemiesToSpawn_insane);
+        // Had to fix this...
+        enemiesToSpawnThisWaveTotal = enemiesToSpawn_basic + enemiesToSpawn_tough + enemiesToSpawn_tougher + enemiesToSpawn_insane;
+        enemiesRemainingThisWave = enemiesToSpawnThisWaveTotal;
         spawnSpeed = Mathf.Max(spawnSpeed - 0.1f, 0.04f);
     }
 
@@ -132,7 +136,11 @@ public class Spawner {
         if (enemiesToSpawn_tougher > 0) { available.Add(2); }
         if (enemiesToSpawn_insane > 0) { available.Add(3); }
         int rand = Random.Range(0, available.Count);
-        if (available.Count == 0) { Debug.Log("Available count was zero... o_O"); return; }
+        if (available.Count == 0) {
+            Debug.Log("Available count was zero... o_O");
+            enemiesRemainingThisWave = 0;
+            return;
+        }
         EnemyType type = EnemyType.BasicTypeA;
         switch (available[rand]) {
             // Basic
