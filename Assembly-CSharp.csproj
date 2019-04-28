@@ -60,20 +60,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AudioHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\FX\TripEffect.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GUIManager.cs" />
+    <Compile Include="Assets\Scripts\GUITowerModule.cs" />
     <Compile Include="Assets\Scripts\IPoolable.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Pool.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\SpritesheetAnim.cs" />
     <Compile Include="Assets\Scripts\TowerBaseShooter.cs" />
-    <Compile Include="Assets\Scripts\TowerBasic.cs" />
+    <Compile Include="Assets\Scripts\TowerDatabase.cs" />
     <Compile Include="Assets\Scripts\TowerManager.cs" />
+    <Compile Include="Assets\Scripts\TowerShoot.cs" />
+    <Compile Include="Assets\Scripts\TowerUIElement.cs" />
     <Compile Include="Assets\Scripts\Trackpath.cs" />
     <Compile Include="Assets\Scripts\TrackPoint.cs" />
+    <Compile Include="Assets\Scripts\WaveSpawnHandler.cs" />
     <None Include="Assets\Artwork\Textures\About.txt" />
+    <None Include="Assets\Scripts\FX\TripEffect.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>E:/Documents/Unity Projects/LD44/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

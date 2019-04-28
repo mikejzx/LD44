@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    private int _health = 150;
-    public int health {
+    private static int _health = 150;
+    public static int health {
         get { return _health; }
         set {
             GUIManager.SetHealth(value);

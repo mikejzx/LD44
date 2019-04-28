@@ -34,10 +34,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224927477455229600}
-  - component: {fileID: 114340520506991254}
-  - component: {fileID: 114750040901159270}
+  - component: {fileID: 114811743849495296}
   m_Layer: 5
-  m_Name: tower_basic
+  m_Name: tower_pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +130,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114340520506991254
+--- !u!114 &114811743849495296
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -139,46 +138,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1410452575565648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d32b2bb9f0abf44c9a6832b327c0b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8506c428a625f134aade339ebc046f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  damageDealt: 10
-  strength: 10
+  arms: {fileID: 224790358238931888}
   imagePivot: {fileID: 224650020441134956}
-  currentPt: 0
-  trans: {fileID: 0}
---- !u!114 &114750040901159270
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1410452575565648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a53b06a086af6114ba8eaeee8b45b305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frames:
-  - {fileID: 21300000, guid: 2dcb53134764517418bd4a0f2e085dff, type: 3}
-  - {fileID: 21300000, guid: 44820d9eecc814e4392d27881f669696, type: 3}
-  - {fileID: 21300000, guid: 66858fc9906b5e649aa29153d8538b80, type: 3}
-  - {fileID: 21300000, guid: 0053c461301536547a652bcfe966a016, type: 3}
-  - {fileID: 21300000, guid: 09cbfacf8fcf3bf4fa26d53bce802e46, type: 3}
-  - {fileID: 21300000, guid: 39e4d79a1c9b22d47a9e39bf1c17a4ee, type: 3}
-  - {fileID: 21300000, guid: e88efe879586371418fb55a74f5181a9, type: 3}
-  - {fileID: 21300000, guid: 8a49c59f076ebca47a1a4675cf82294f, type: 3}
-  - {fileID: 21300000, guid: 9b8805899ca43ca438f835394fc64b9d, type: 3}
-  - {fileID: 21300000, guid: 47816371ff09ebc4eb2a38834fdf172c, type: 3}
-  - {fileID: 21300000, guid: ecb3dafe0441f074bab19a11bf32d8de, type: 3}
-  - {fileID: 21300000, guid: dfd7c0a00503c57409a886cd4602642a, type: 3}
-  - {fileID: 21300000, guid: 3cc66e8ea1f4697419ff4a736d700156, type: 3}
-  - {fileID: 21300000, guid: 27aa20f83d32ffb468599f29eddda4ba, type: 3}
-  - {fileID: 21300000, guid: ec10f411f2f038b4cb8e683373fa70a3, type: 3}
-  - {fileID: 21300000, guid: f6424993c50c0cd4a9e27477d8d5bf4c, type: 3}
-  - {fileID: 21300000, guid: 78c4f032a21d88745bcf3f9146cd56e3, type: 3}
-  image: {fileID: 114220818662739082}
-  frameDelay: 0.1
+  initialArmPos: {x: 0, y: 0, z: 14}
+  shootArmPos: {x: 0, y: 0, z: 10}
+  range: 5
+  firerate: 0.7
+  damage: 1
 --- !u!222 &222065272284110640
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -263,6 +232,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 384, y: -209.00002}
+  m_AnchoredPosition: {x: 384, y: -209}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0, y: 1}

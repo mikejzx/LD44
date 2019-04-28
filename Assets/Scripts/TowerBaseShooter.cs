@@ -40,7 +40,6 @@ public abstract class TowerBaseShooter : MonoBehaviour {
 
         // Return if there's no target
         if (!hasTarget || targetIdx == -1) {
-            timer = GetShootDelay(); // So next time is instant to shoot.
             return;
         }
 
@@ -58,10 +57,11 @@ public abstract class TowerBaseShooter : MonoBehaviour {
 
     protected abstract float GetRange ();
     protected abstract float GetShootDelay ();
+    protected abstract int GetDamage ();
 
     protected void Shoot (Enemy target) {
         // Handle actually firing here...
-        target.Damage();
+        target.Damage(GetDamage());
 
         // This is for the VFX suchas recoil kickback etc.
         if (shootCr != null) { StopCoroutine(shootCr); }

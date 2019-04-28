@@ -9,19 +9,18 @@ using UnityEngine.UI;
         not since i need to work on other stuff lol.
 */
 
-public class Enemy : MonoBehaviour, IPoolable {
+public enum EnemyType {
+    BasicTypeA = 1, // Basic type A, B, and C are all the same, but look different.
+    BasicTypeB = 2,
+    BasicTypeC = 3,
+    BasicShooter = 4,
+    Tough = 5,
+    ToughShooter = 6,
+    Tougher = 7,
+    Insane = 8,
+};
 
-    public enum EnemyType {
-        BasicTypeA = 1, // Basic type A, B, and C are all the same, but look different.
-        BasicTypeB = 2,
-        BasicTypeC = 3,
-        BasicShooter = 4,
-        Tough = 5,
-        ToughShooter = 6,
-        Tougher = 7,
-        Insane = 8,
-    };
-    private static readonly int ENEMYTYPE_COUNT = 8;
+public class Enemy : MonoBehaviour, IPoolable {
     public EnemyType type;
 
     public RectTransform imagePivot;
@@ -96,8 +95,8 @@ public class Enemy : MonoBehaviour, IPoolable {
     }
 
     /// <summary>Damage the enemy by 1. Call Die() to destroy it instantly instead.</summary>
-    public void Damage () {
-        --health;
+    public void Damage (int deal) {
+        health -= deal;
         if (health <= 0) {
             Die();
         }
@@ -118,7 +117,7 @@ public class Enemy : MonoBehaviour, IPoolable {
     }
 
     private void InitialiseEnemyType () {
-        type = (EnemyType) Random.Range (1, ENEMYTYPE_COUNT + 1);
+        //type = (EnemyType) Random.Range (1, ENEMYTYPE_COUNT + 1);
         switch (type) {
             case (EnemyType.BasicTypeA): {
                 baseSprite.sprite = GameManager.sprite_enemyBasicA;

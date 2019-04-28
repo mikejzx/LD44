@@ -30,9 +30,11 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private Sprite _sprite_enemyInsane;
 
     // Constansts
-    public static readonly int ENEMYSTRENGTH_BASIC = 1,
-        ENEMYSTRENGTH_TOUGH = 3,
-        ENEMYSTRENGTH_TOUGHER = 5,
+    public static readonly Color COLOUR_TOWER_AVAILABLE = new Color(0.0f, 1.0f, 0.2f, 1.0f);
+    public static readonly Color COLOUR_TOWER_UNAVAILABLE = new Color(1.0f, 0.1f, 0.1f, 0.5f);
+    public static readonly int ENEMYSTRENGTH_BASIC = 2,
+        ENEMYSTRENGTH_TOUGH = 4,
+        ENEMYSTRENGTH_TOUGHER = 6,
         ENEMYSTRENGTH_INSANE = 7;
     public static readonly int ENEMYSPEED_BASIC = 20,
         ENEMYSPEED_TOUGH = 15,
@@ -43,14 +45,15 @@ public class GameManager : MonoBehaviour {
         ENEMYDAMAGE_TOUGHER = 20,
         ENEMYDAMAGE_INSANE = 30;
 
-    private static readonly int STARTING_HEALTH = 150;
+    public static readonly int STARTING_HEALTH = 150;
 
     private void Awake () => instance = this;
 
     private void Start () {
-        gui.Initialise();
+        gui.Initialise(this);
+        spawner.Initialise();
         player = GetComponent<Player>();
-        player.health = STARTING_HEALTH;
+        Player.health = STARTING_HEALTH;
 
         ForceWidescreenRatio();
     }
