@@ -8,6 +8,7 @@ public class AudioHandler : MonoBehaviour {
 
     public AudioSource bgmSource;
     public AudioClip waveCompleteSound;
+    public AudioClip waveBeginSound;
     public AudioClip clickSound;
 
     private static readonly float clickVol = 1.0f;
@@ -22,6 +23,10 @@ public class AudioHandler : MonoBehaviour {
 
     public static void PlayWaveFinishSound () {
         instance.bgmSource.PlayOneShot(instance.waveCompleteSound, GameManager.VOLUME_WAVECOMPLETE);
+    }
+
+    public static void PlayWaveStartSound () {
+        instance.bgmSource.PlayOneShot(instance.waveBeginSound, GameManager.VOLUME_WAVEBEGIN);
     }
 
     public static void Play2DSound(AudioClip clip, float vol) {

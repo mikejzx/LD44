@@ -9,4 +9,6 @@ public interface ITower {
     TowerInfo MyInfo ();
     void SetTowerInfo (TowerInfo t);
     GameObject GetGameobject ();
+    void LockMovement (); // Locks the movement so it cannot be dragged
+    int SellPrice ();
 }

@@ -107,6 +107,9 @@ public class Enemy : MonoBehaviour, IPoolable {
     public void Damage (int deal) {
         health -= deal;
         if (health <= 0) {
+            // Add to player's kills
+            ++Player.kills;
+
             Die();
         }
     }

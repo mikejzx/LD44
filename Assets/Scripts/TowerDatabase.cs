@@ -4,9 +4,13 @@ using UnityEngine;
 
 public static class TowerDatabase {
 
+    public static readonly string TOWER_MINIGUN_ID = "tower_minigun";
+
     public static List<TowerInfo> towers = new List<TowerInfo>() {
-        new TowerInfo("tower_pistol", "Pistol Tower", 50, "Shoots a low-power pistol in a short range, at short intervals."),
-        new TowerInfo("tower_sniper", "Sniper Tower", 200, "A high-powered sniper rifle that is capable of obliterating anything within an enormous range!"),
+        new TowerInfo("tower_pistol", "Pistol Tower", 100, "Shoots a low-power pistol in a short range, at short intervals."),
+        new TowerInfo("tower_sniper", "Sniper Tower", 300, "A high-powered sniper rifle that is capable of obliterating anything within an enormous range!"),
+        new TowerInfo("tower_rifle", "Rifle Tower", 400, "A medium-powered assault rifle that fires in rapid succession at range."),
+        new TowerInfo(TOWER_MINIGUN_ID, "Disintegrator", 1250, "An absolute monstrosity of a weapon capable of annihilating anything in front of it's barrels.\n\nOnly ONE Disintegrator is allowed!"),
         // TODO: More towers !
     };
 }

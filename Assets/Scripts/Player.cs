@@ -38,6 +38,10 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.X)) {
             Damage(20);
         }
+
+        if (Input.GetKeyDown(KeyCode.C)) {
+            health += 200;
+        }
     }
 #endif
 

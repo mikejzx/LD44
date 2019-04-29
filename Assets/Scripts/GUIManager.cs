@@ -20,6 +20,13 @@ public class GUIManager {
     public Button btnQuit;
     public Button btnRestart;
     [Space]
+    public Button btnPause;
+    public Button btnPauseResume;
+    public Button btnPauseQuit;
+    public CanvasGroup cgPauseMenu;
+    public bool pauseMenuShowing = false;
+    private Coroutine crPause;
+    [Space]
     [SerializeField] private Sprite _missingTexture;
     public static Sprite missingTexture { get { return instance._missingTexture; } }
     [Space]
@@ -54,6 +61,27 @@ public class GUIManager {
         goLoseScreen.SetActive(false);
 
         cgSidebar.alpha = 1.0f;
+
+        // Pause menu stuff
+        btnPause.onClick.AddListener(Fn_PauseMenu);
+        btnPauseResume.onClick.AddListener(Fn_PauseMenuHide);
+        btnPauseQuit.onClick.AddListener(Fn_QuitGame);
+
+        cgPauseMenu.alpha = 0.0f;
+        cgPauseMenu.gameObject.SetActive(false);
+
+        pauseMenuShowing = false;
+    }
+
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (pauseMenuShowing) {
+                Fn_PauseMenuHide();
+            }
+            else {
+                Fn_PauseMenu();
+            }
+        }
     }
 
     public static void SetHealth(int newhealth) {
@@ -187,6 +215,42 @@ public class GUIManager {
         // This seems like a *decent* solution.
         Time.timeScale = 1.0f;
         UnityEngine.SceneManagement.SceneManager.LoadScene("dummyscene");
+    }
+
+    /// <summary>Hide the pause menu</summary>
+    private void Fn_PauseMenuHide() {
+        AudioHandler.ClickSound();
+        pauseMenuShowing = false;
+
+        if (crPause != null) { behav.StopCoroutine(crPause); }
+        crPause = behav.StartCoroutine(PauseMenuCr(false));
+    }
+
+    /// <summary>Show the pause menu</summary>
+    private void Fn_PauseMenu() {
+        AudioHandler.ClickSound();
+        pauseMenuShowing = true;
+
+        if (crPause != null) { behav.StopCoroutine(crPause); }
+        crPause = behav.StartCoroutine(PauseMenuCr(true));
+    }
+
+    private IEnumerator PauseMenuCr (bool show) {
+        Time.timeScale = show ? 0.0f : (Spawner.instance.doublespeed ? 2.0f : 1.0f);
+        float tar = show ? 1.0f : 0.0f, 
+            from = show ? 0.0f : 1.0f;
+        cgPauseMenu.alpha = from;
+        cgPauseMenu.gameObject.SetActive(true);
+        float t = 0.0f, s = 4.0f;
+        while (t < 1.0f) {
+            t = Mathf.Clamp01(t + Time.unscaledDeltaTime * s);
+            cgPauseMenu.alpha = Mathf.Lerp(from, tar, t);
+            yield return null;
+        }
+        cgPauseMenu.alpha = tar;
+        if (!show) {
+            cgPauseMenu.gameObject.SetActive(false);
+        }
     }
     #endregion
 }

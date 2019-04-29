@@ -75,9 +75,11 @@
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\SpritesheetAnim.cs" />
     <Compile Include="Assets\Scripts\TowerBaseShooter.cs" />
+    <Compile Include="Assets\Scripts\TowerClickPoint.cs" />
     <Compile Include="Assets\Scripts\TowerDatabase.cs" />
     <Compile Include="Assets\Scripts\TowerDisplay.cs" />
     <Compile Include="Assets\Scripts\TowerManager.cs" />
+    <Compile Include="Assets\Scripts\TowerShMinigun.cs" />
     <Compile Include="Assets\Scripts\TowerShoot.cs" />
     <Compile Include="Assets\Scripts\TowerUIElement.cs" />
     <Compile Include="Assets\Scripts\Trackpath.cs" />

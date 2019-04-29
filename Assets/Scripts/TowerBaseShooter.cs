@@ -78,19 +78,19 @@ public abstract class TowerBaseShooter : MonoBehaviour, ITower {
     public GameObject GetGameobject () => gameObject;
     public GameObject GetRangeCircle () => rangeCircle.gameObject;
     public void SetEnabled (bool enable) => working = enable;
+    public void LockMovement () => rangeCircle.GetComponent<TowerDisplay>().LockMovement();
+    public int SellPrice () => Mathf.RoundToInt(MyInfo().cost * (5.0f / 8.0f));
 
     protected abstract float GetRange ();
     protected abstract float GetShootDelay ();
     protected abstract int GetDamage ();
 
-    protected void Shoot (Enemy target) {
+    protected virtual void Shoot (Enemy target) {
         // Handle actually firing here...
         target.Damage(GetDamage());
         if (shootSound != null) {
             AudioHandler.Play2DSound(shootSound, soundVolume);
         }
-        // Add to player's kills
-        ++Player.kills;
 
         // This is for the VFX suchas recoil kickback etc.
         if (shootCr != null) { StopCoroutine(shootCr); }

@@ -68,6 +68,8 @@ public class Spawner {
     }
 
     public void Update () {
+        if (GUIManager.instance.pauseMenuShowing) { return; } // Time is handled in pause menu
+
         Time.timeScale = doublespeed ? 2.0f : 1.0f;
         if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus) || Input.GetKeyDown(KeyCode.D)) {
             doublespeed ^= true;
@@ -82,6 +84,9 @@ public class Spawner {
                     GUIManager.RemoveInstructionMsg(out success);
                     // If the user tries to start before the fade finishes.
                     ready = success;
+                }
+                if (ready) {
+                    AudioHandler.PlayWaveStartSound();
                 }
             }
             return;
@@ -125,7 +130,7 @@ public class Spawner {
         // Had to fix this...
         enemiesToSpawnThisWaveTotal = enemiesToSpawn_basic + enemiesToSpawn_tough + enemiesToSpawn_tougher + enemiesToSpawn_insane;
         enemiesRemainingThisWave = enemiesToSpawnThisWaveTotal;
-        spawnSpeed = Mathf.Max(spawnSpeed - 0.1f, 0.04f);
+        spawnSpeed = Mathf.Max(spawnSpeed - 0.1f, 0.1f);
     }
 
     private void SpawnEnemy () {

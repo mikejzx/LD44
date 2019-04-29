@@ -33,10 +33,10 @@ public class GameManager : MonoBehaviour {
     // Constansts
     public static readonly Color COLOUR_TOWER_AVAILABLE = new Color(0.0f, 1.0f, 0.2f, 1.0f);
     public static readonly Color COLOUR_TOWER_UNAVAILABLE = new Color(1.0f, 0.1f, 0.1f, 0.5f);
-    public static readonly int ENEMYSTRENGTH_BASIC = 2,
-        ENEMYSTRENGTH_TOUGH = 4,
-        ENEMYSTRENGTH_TOUGHER = 6,
-        ENEMYSTRENGTH_INSANE = 7;
+    public static readonly int ENEMYSTRENGTH_BASIC = 5,
+        ENEMYSTRENGTH_TOUGH = 10,
+        ENEMYSTRENGTH_TOUGHER = 15,
+        ENEMYSTRENGTH_INSANE = 18;
     public static readonly int ENEMYSPEED_BASIC = 20,
         ENEMYSPEED_TOUGH = 15,
         ENEMYSPEED_TOUGHER = 10,
@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour {
 
     public static readonly float CANVAS_WIDTH = 800.0f, CANVAS_HEIGHT = 450.0f;
     public static readonly int WAVE_BONUS_LIFE_MUL = 15;
-    public static readonly int STARTING_HEALTH = 150;
-    public static readonly float VOLUME_WAVECOMPLETE = 0.7f;
+    public static readonly int STARTING_HEALTH = 200;
+    public static readonly float VOLUME_WAVECOMPLETE = 0.7f, VOLUME_WAVEBEGIN = 0.9f;
 
     private void Awake () => instance = this;
 
@@ -58,12 +58,14 @@ public class GameManager : MonoBehaviour {
         spawner.Initialise();
         player = GetComponent<Player>();
         Player.health = STARTING_HEALTH;
+        TowerShMinigun.instances = 0; // For restarting the game.
 
         ForceWidescreenRatio();
     }
 
     private void Update () {
         spawner.Update();
+        gui.Update();
     }
 
     private void ForceWidescreenRatio () {
